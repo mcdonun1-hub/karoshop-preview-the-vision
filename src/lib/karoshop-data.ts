@@ -8,25 +8,25 @@ import runner from "@/assets/p-runner.jpg";
 export type Category = {
   slug: string;
   title: string;
-  emoji: string;
+  icon: string;
   group: "audience" | "style" | "type" | "highlight";
 };
 
 /** Flat + extensible: new categories/subcategories only add rows here. */
 export const categories: Category[] = [
-  { slug: "men", title: "مردانه", emoji: "👔", group: "audience" },
-  { slug: "women", title: "زنانه", emoji: "👗", group: "audience" },
-  { slug: "kids", title: "بچگانه", emoji: "🧒", group: "audience" },
-  { slug: "casual", title: "کژوال", emoji: "🧥", group: "style" },
-  { slug: "sport", title: "اسپرت", emoji: "🏃", group: "style" },
-  { slug: "jeans", title: "جین", emoji: "👖", group: "type" },
-  { slug: "shirt", title: "پیراهن", emoji: "👕", group: "type" },
-  { slug: "tshirt", title: "تیشرت", emoji: "🩳", group: "type" },
-  { slug: "sport-tshirt", title: "تیشرت ورزشی", emoji: "🎽", group: "type" },
-  { slug: "shoes", title: "کفش", emoji: "👟", group: "type" },
-  { slug: "vans", title: "ونس", emoji: "🛹", group: "type" },
-  { slug: "new", title: "جدیدترین‌ها", emoji: "✨", group: "highlight" },
-  { slug: "sale", title: "تخفیف‌ها", emoji: "🔥", group: "highlight" },
+  { slug: "men", title: "مردانه", icon: "shirt", group: "audience" },
+  { slug: "women", title: "زنانه", icon: "sparkle", group: "audience" },
+  { slug: "kids", title: "بچگانه", icon: "baby", group: "audience" },
+  { slug: "casual", title: "کژوال", icon: "layers", group: "style" },
+  { slug: "sport", title: "اسپرت", icon: "activity", group: "style" },
+  { slug: "jeans", title: "جین", icon: "ruler", group: "type" },
+  { slug: "shirt", title: "پیراهن", icon: "shirt", group: "type" },
+  { slug: "tshirt", title: "تیشرت", icon: "shirt", group: "type" },
+  { slug: "sport-tshirt", title: "تیشرت ورزشی", icon: "activity", group: "type" },
+  { slug: "shoes", title: "کفش", icon: "footprints", group: "type" },
+  { slug: "vans", title: "ونس", icon: "footprints", group: "type" },
+  { slug: "new", title: "جدیدترین‌ها", icon: "sparkles", group: "highlight" },
+  { slug: "sale", title: "تخفیف‌ها", icon: "flame", group: "highlight" },
 ];
 
 export type Product = {
