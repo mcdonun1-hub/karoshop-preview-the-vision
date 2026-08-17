@@ -41,7 +41,7 @@ export function ProductCard({ product, variant = "desktop" }: Props) {
             </span>
           )}
           {product.isNew && (
-            <span className="rounded-full bg-background px-2 py-0.5 text-[11px] font-semibold text-foreground">
+            <span className="rounded-full border border-foreground/15 bg-background/90 px-2 py-0.5 text-[11px] font-semibold text-foreground backdrop-blur">
               جدید
             </span>
           )}
