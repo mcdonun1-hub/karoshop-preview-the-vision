@@ -13,9 +13,10 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
       {/* Desktop */}
       <div className="mx-auto hidden max-w-[1400px] items-center gap-6 px-6 py-4 sm:flex">
-        <Link to="/" className="shrink-0">
-          <span className="text-2xl font-black tracking-tight">
-            کارو<span className="text-accent">شاپ</span>
+        <Link to="/" className="flex shrink-0 flex-col items-center leading-none">
+          <span className="text-2xl font-black tracking-[-0.08em]">KS</span>
+          <span className="mt-0.5 text-[10px] font-bold tracking-[0.35em] text-muted-foreground">
+            KAROSHOP
           </span>
         </Link>
 
@@ -75,8 +76,11 @@ export function SiteHeader() {
           >
             <Menu className="size-5" />
           </button>
-          <Link to="/" className="justify-self-center text-lg font-black">
-            کارو<span className="text-accent">شاپ</span>
+          <Link to="/" className="flex flex-col items-center justify-self-center leading-none">
+            <span className="text-xl font-black tracking-[-0.08em]">KS</span>
+            <span className="mt-0.5 text-[8px] font-bold tracking-[0.3em] text-muted-foreground">
+              KAROSHOP
+            </span>
           </Link>
           <button
             aria-label="سبد خرید"

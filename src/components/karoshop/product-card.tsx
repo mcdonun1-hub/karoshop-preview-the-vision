@@ -17,7 +17,7 @@ export function ProductCard({ product, variant = "desktop" }: Props) {
   return (
     <article
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground shadow-card transition-all duration-300",
+        "group relative flex flex-col overflow-hidden rounded-[20px] bg-card text-card-foreground shadow-card transition-all duration-300",
         !mobile && "hover:-translate-y-1 hover:shadow-lift",
       )}
     >
@@ -36,12 +36,12 @@ export function ProductCard({ product, variant = "desktop" }: Props) {
 
         <div className="absolute start-2 top-2 flex flex-col gap-1">
           {off !== null && (
-            <span className="rounded-full bg-sale px-2 py-0.5 text-[11px] font-bold text-sale-foreground price-num">
+            <span className="rounded-full bg-foreground px-2 py-0.5 text-[11px] font-bold text-background price-num">
               ٪{formatPrice(off)}
             </span>
           )}
           {product.isNew && (
-            <span className="rounded-full bg-primary px-2 py-0.5 text-[11px] font-semibold text-primary-foreground">
+            <span className="rounded-full bg-background px-2 py-0.5 text-[11px] font-semibold text-foreground">
               جدید
             </span>
           )}
