@@ -114,12 +114,15 @@ const base: Omit<Product, "id">[] = [
 
 /** Preview dataset — repeated to prove the grid scales to large catalogs. */
 export const products: Product[] = Array.from({ length: 5 }).flatMap((_, round) =>
-  base.map((p, i) => ({
-    ...p,
-    id: `p-${round}-${i}`,
-    price: p.price + round * 40000,
-    oldPrice: p.oldPrice ? p.oldPrice + round * 40000 : undefined,
-  })),
+  base.map((p, i) => {
+    const item: Product = {
+      ...p,
+      id: `p-${round}-${i}`,
+      price: p.price + round * 40000,
+    };
+    if (p.oldPrice) item.oldPrice = p.oldPrice + round * 40000;
+    return item;
+  }),
 );
 
 export function productsByCategory(slug?: string) {
