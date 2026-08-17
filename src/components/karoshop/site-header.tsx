@@ -1,146 +1,107 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
-import { categories } from "@/lib/karoshop-data";
-import { CategoryIcon } from "./category-icon";
+import { Search, ShoppingBag, User } from "lucide-react";
+import logoAsset from "@/assets/karoshop-logo.png.asset.json";
 
-const quickLinks = ["men", "women", "kids", "shoes", "sale"] as const;
+function SearchField({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className="relative">
+      <Search className="pointer-events-none absolute end-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      <input
+        type="search"
+        placeholder="جستجوی محصول، برند یا دسته…"
+        className={
+          "w-full rounded-full bg-surface pe-11 ps-4 text-sm outline-none ring-accent/50 transition placeholder:text-muted-foreground focus:ring-2 " +
+          (compact ? "h-10" : "h-12")
+        }
+      />
+    </div>
+  );
+}
 
 export function SiteHeader() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const [showStickySearch, setShowStickySearch] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const marker = document.querySelector<HTMLElement>("[data-categories-end]");
+      const threshold = marker
+        ? marker.getBoundingClientRect().top + window.scrollY - 80
+        : 600;
+      setShowStickySearch(window.scrollY > threshold);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
-      {/* Desktop */}
-      <div className="mx-auto hidden max-w-[1400px] items-center gap-6 px-6 py-4 sm:flex">
-        <Link to="/" className="flex shrink-0 flex-col items-center leading-none">
-          <span className="text-2xl font-black tracking-[-0.08em]">KS</span>
-          <span className="mt-0.5 text-[10px] font-bold tracking-[0.35em] text-muted-foreground">
-            KAROSHOP
-          </span>
-        </Link>
-
-        <nav className="flex shrink-0 items-center gap-5 text-sm font-semibold">
-          {quickLinks.map((slug) => {
-            const c = categories.find((x) => x.slug === slug)!;
-            return (
-              <Link
-                key={slug}
-                to="/category/$slug"
-                params={{ slug }}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-                activeProps={{ className: "text-foreground" }}
-              >
-                {c.title}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="relative min-w-0 flex-1">
-          <Search className="pointer-events-none absolute end-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <input
-            type="search"
-            placeholder="جستجوی محصول، برند یا دسته…"
-            className="h-11 w-full rounded-full bg-surface pe-11 ps-4 text-sm outline-none ring-accent/50 transition placeholder:text-muted-foreground focus:ring-2"
-          />
-        </div>
-
-        <div className="flex shrink-0 items-center gap-1">
-          {[
-            { icon: Heart, label: "علاقه‌مندی‌ها" },
-            { icon: User, label: "حساب کاربری" },
-          ].map(({ icon: Icon, label }) => (
-            <button
-              key={label}
-              aria-label={label}
-              className="grid size-10 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-surface hover:text-foreground"
-            >
-              <Icon className="size-5" />
-            </button>
-          ))}
-          <button className="ms-1 flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground">
-            <ShoppingBag className="size-4" />
-            سبد خرید
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile */}
-      <div className="sm:hidden">
-        <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 py-3">
-          <button
-            aria-label="منو"
-            onClick={() => setOpenMenu(true)}
-            className="grid size-9 place-items-center rounded-xl bg-surface"
-          >
-            <Menu className="size-5" />
-          </button>
-          <Link to="/" className="flex flex-col items-center justify-self-center leading-none">
-            <span className="text-xl font-black tracking-[-0.08em]">KS</span>
-            <span className="mt-0.5 text-[8px] font-bold tracking-[0.3em] text-muted-foreground">
-              KAROSHOP
-            </span>
-          </Link>
-          <button
-            aria-label="سبد خرید"
-            className="relative grid size-9 place-items-center rounded-xl bg-surface"
-          >
-            <ShoppingBag className="size-5" />
-            <span className="absolute -end-1 -top-1 grid size-4 place-items-center rounded-full bg-sale text-[10px] font-bold text-sale-foreground price-num">
-              ۲
-            </span>
-          </button>
-        </div>
-        <div className="px-3 pb-3">
-          <div className="relative">
-            <Search className="pointer-events-none absolute end-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <input
-              type="search"
-              placeholder="دنبال چی می‌گردی؟"
-              className="h-11 w-full rounded-2xl bg-surface pe-10 ps-4 text-sm outline-none ring-accent/50 focus:ring-2"
-            />
-          </div>
-        </div>
-      </div>
-
-      {openMenu && (
-        <div className="fixed inset-0 z-50 sm:hidden">
-          <button
-            aria-label="بستن"
-            className="absolute inset-0 bg-foreground/40"
-            onClick={() => setOpenMenu(false)}
-          />
-          <div className="absolute inset-y-0 end-0 w-[82%] max-w-xs overflow-y-auto bg-background p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-lg font-black">همه دسته‌ها</span>
+    <>
+      <header className="border-b border-border bg-background">
+        <div className="mx-auto max-w-[1400px] px-3 py-4 sm:px-6 sm:py-6">
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+            <div className="flex items-center gap-1">
               <button
-                aria-label="بستن منو"
-                onClick={() => setOpenMenu(false)}
-                className="grid size-9 place-items-center rounded-xl bg-surface"
+                aria-label="سبد خرید"
+                className="grid size-10 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-surface hover:text-foreground"
               >
-                <X className="size-5" />
+                <ShoppingBag className="size-5" />
+              </button>
+              <button
+                aria-label="حساب کاربری"
+                className="grid size-10 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-surface hover:text-foreground"
+              >
+                <User className="size-5" />
               </button>
             </div>
-            <nav className="mt-4 flex flex-col">
-              {categories.map((c) => (
-                <Link
-                  key={c.slug}
-                  to="/category/$slug"
-                  params={{ slug: c.slug }}
-                  onClick={() => setOpenMenu(false)}
-                  className="flex items-center gap-3 border-b border-border py-3 text-sm font-semibold"
-                >
-                  <span className="grid size-9 place-items-center rounded-xl bg-surface">
-                    <CategoryIcon name={c.icon} className="size-4" />
-                  </span>
-                  {c.title}
-                </Link>
-              ))}
-            </nav>
+
+            <Link to="/" className="justify-self-center" aria-label="کاروشاپ">
+              <img
+                src={logoAsset.url}
+                alt="کاروشاپ — Style Is You"
+                width={520}
+                height={200}
+                className="h-14 w-auto object-contain sm:h-20"
+              />
+            </Link>
+
+            <span className="size-10" aria-hidden />
+          </div>
+
+          <div className="mx-auto mt-4 w-full max-w-xl sm:mt-6">
+            <SearchField />
           </div>
         </div>
-      )}
-    </header>
+      </header>
+
+      {/* Sticky search: appears only after scrolling past the categories */}
+      <div
+        className={
+          "fixed inset-x-0 top-0 z-40 border-b border-border bg-background/90 backdrop-blur transition-all duration-300 " +
+          (showStickySearch
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-full opacity-0")
+        }
+      >
+        <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-3 py-2.5 sm:px-6">
+          <Link to="/" className="shrink-0" aria-label="کاروشاپ">
+            <img
+              src={logoAsset.url}
+              alt="کاروشاپ"
+              width={260}
+              height={100}
+              className="h-9 w-auto object-contain"
+            />
+          </Link>
+          <div className="min-w-0 flex-1">
+            <SearchField compact />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
