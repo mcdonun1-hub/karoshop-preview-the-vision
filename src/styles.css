@@ -4,15 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Persian typography: Beirut (fontcdn) with Vazirmatn as metric fallback */
-@font-face {
-  font-family: "Beirut";
-  src:
-    url("https://cdn.fontcdn.ir/Font/Persian/Beirut/Beirut.woff2") format("woff2"),
-    url("https://cdn.fontcdn.ir/Font/Persian/Beirut/Beirut.woff") format("woff");
-  font-weight: 400 900;
-  font-display: swap;
-}
+/* Persian typography: "Beirut" is used when licensed/installed locally,
+   otherwise Vazirmatn (loaded in __root.tsx) is the web fallback. */
 
 @theme inline {
   --font-sans: "Beirut", "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
