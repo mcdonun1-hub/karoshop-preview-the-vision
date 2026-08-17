@@ -1,24 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/karoshop/site-header";
+import { MobileTabBar } from "@/components/karoshop/mobile-tab-bar";
+import { HeroSlider } from "@/components/karoshop/hero-slider";
+import { CategoryNav } from "@/components/karoshop/category-nav";
+import { ProductGrid } from "@/components/karoshop/product-grid";
+import { SiteFooter } from "@/components/karoshop/site-footer";
+import { productsByCategory } from "@/lib/karoshop-data";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const title = "کاروشاپ | فروشگاه لباس و کفش کژوال و اسپرت";
+const description =
+  "کاروشاپ؛ خرید آنلاین لباس مردانه، زنانه و بچگانه و کفش‌های کژوال و اسپرت با قیمت شفاف و ارسال سریع.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const newest = productsByCategory("new").slice(0, 10);
+  const sale = productsByCategory("sale").slice(0, 10);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <main className="mx-auto max-w-[1400px]">
+        <h1 className="sr-only">کاروشاپ — فروشگاه آنلاین پوشاک و کفش کژوال و اسپرت</h1>
+        <HeroSlider />
+        <CategoryNav />
+        <ProductGrid title="جدیدترین‌ها" products={newest} />
+        <ProductGrid title="تخفیف‌های این هفته" products={sale} />
+      </main>
+      <SiteFooter />
+      <MobileTabBar />
     </div>
   );
 }
