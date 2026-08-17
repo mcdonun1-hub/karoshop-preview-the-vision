@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { categories } from "@/lib/karoshop-data";
+import { CategoryIcon } from "./category-icon";
 
 const quickLinks = ["men", "women", "kids", "shoes", "sale"] as const;
 
@@ -127,7 +128,7 @@ export function SiteHeader() {
                   className="flex items-center gap-3 border-b border-border py-3 text-sm font-semibold"
                 >
                   <span className="grid size-9 place-items-center rounded-xl bg-surface">
-                    {c.emoji}
+                    <CategoryIcon name={c.icon} className="size-4" />
                   </span>
                   {c.title}
                 </Link>

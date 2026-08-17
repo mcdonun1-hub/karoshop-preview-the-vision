@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { categories } from "@/lib/karoshop-data";
+import { CategoryIcon } from "./category-icon";
 
 /**
  * Category system: a scroll rail on mobile, a wrapping tile grid on desktop.
@@ -26,8 +27,8 @@ export function CategoryNav({ active }: { active?: string }) {
               active === c.slug && "ring-2 ring-accent",
             )}
           >
-            <span className="grid size-12 place-items-center rounded-xl bg-surface text-xl">
-              {c.emoji}
+            <span className="grid size-12 place-items-center rounded-xl bg-surface text-foreground">
+              <CategoryIcon name={c.icon} className="size-5" />
             </span>
             <span className="w-full truncate text-center text-[11px] font-semibold">{c.title}</span>
           </Link>
@@ -46,8 +47,8 @@ export function CategoryNav({ active }: { active?: string }) {
               active === c.slug && "ring-2 ring-accent",
             )}
           >
-            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface text-lg transition-colors group-hover:bg-accent/10">
-              {c.emoji}
+            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface text-foreground transition-colors group-hover:bg-accent/10 group-hover:text-accent">
+              <CategoryIcon name={c.icon} className="size-4.5" />
             </span>
             <span className="min-w-0 truncate text-sm font-semibold">{c.title}</span>
           </Link>
