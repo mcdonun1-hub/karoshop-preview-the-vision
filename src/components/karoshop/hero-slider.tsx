@@ -44,7 +44,7 @@ export function HeroSlider() {
 
   return (
     <section className="px-3 pt-3 sm:px-6">
-      <div className="relative overflow-hidden rounded-3xl bg-surface">
+      <div className="relative overflow-hidden rounded-[28px] bg-surface">
         <div className="relative aspect-[4/5] sm:aspect-[21/9]">
           {slides.map((s, idx) => (
             <div
@@ -62,19 +62,19 @@ export function HeroSlider() {
                 height={1088}
                 className="size-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent sm:bg-gradient-to-l sm:from-foreground/60 sm:via-foreground/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/35 to-foreground/5 sm:bg-gradient-to-l sm:from-foreground/80 sm:via-foreground/25" />
               <div className="absolute inset-0 flex flex-col justify-end p-5 sm:justify-center sm:p-12 md:p-16">
-                <span className="text-xs font-semibold tracking-widest text-background/80">
+                <span className="text-[11px] font-bold tracking-[0.35em] text-background/80 uppercase">
                   {s.kicker}
                 </span>
-                <h2 className="mt-2 max-w-md text-3xl font-black leading-tight text-background sm:text-5xl">
+                <h2 className="mt-3 max-w-md text-3xl font-black leading-[1.05] tracking-tight text-background sm:text-6xl">
                   {s.title}
                 </h2>
                 <p className="mt-2 max-w-sm text-sm text-background/85 sm:text-base">{s.text}</p>
                 <Link
                   to="/category/$slug"
                   params={{ slug: s.slug }}
-                  className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-background px-5 py-2.5 text-sm font-bold text-foreground transition-transform hover:scale-[1.03] active:scale-95"
+                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-bold text-foreground transition-transform hover:scale-[1.03] active:scale-95"
                 >
                   {s.cta}
                 </Link>
