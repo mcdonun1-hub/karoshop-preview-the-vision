@@ -27,6 +27,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  return <HomePage />;
+}
+
+/** Shared page component — also used by the static preview build. */
+export function HomePage() {
   const newest = productsByCategory("new").slice(0, 10);
   const sale = productsByCategory("sale").slice(0, 10);
   const men = productsByCategory("men").slice(0, 10);

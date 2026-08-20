@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 import { SiteHeader } from "@/components/karoshop/site-header";
 import { MobileTabBar } from "@/components/karoshop/mobile-tab-bar";
@@ -26,8 +26,9 @@ export const Route = createFileRoute("/category/$slug")({
   component: CategoryPage,
 });
 
-function CategoryPage() {
-  const { slug } = Route.useParams();
+/** Shared page component — also used by the static preview build. */
+export function CategoryPage() {
+  const { slug = "" } = useParams({ strict: false }) as { slug?: string };
   const category = categories.find((c) => c.slug === slug);
   const list = productsByCategory(slug);
 
