@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/karoshop/site-header";
 import { MobileTabBar } from "@/components/karoshop/mobile-tab-bar";
 import { HeroSlider } from "@/components/karoshop/hero-slider";
 import { CategoryNav } from "@/components/karoshop/category-nav";
+import { CollectionBanners } from "@/components/karoshop/collection-banners";
 import { ProductGrid } from "@/components/karoshop/product-grid";
 import { SiteFooter } from "@/components/karoshop/site-footer";
 import { productsByCategory } from "@/lib/karoshop-data";
@@ -28,6 +29,10 @@ export const Route = createFileRoute("/")({
 function Index() {
   const newest = productsByCategory("new").slice(0, 10);
   const sale = productsByCategory("sale").slice(0, 10);
+  const men = productsByCategory("men").slice(0, 10);
+  const women = productsByCategory("women").slice(0, 10);
+  const kids = productsByCategory("kids").slice(0, 10);
+  const shoes = productsByCategory("shoes").slice(0, 10);
 
   return (
     <div className="min-h-screen bg-background">
@@ -36,8 +41,13 @@ function Index() {
         <h1 className="sr-only">کاروشاپ — فروشگاه آنلاین پوشاک و کفش کژوال و اسپرت</h1>
         <HeroSlider />
         <CategoryNav />
-        <ProductGrid title="جدیدترین‌ها" products={newest} />
-        <ProductGrid title="تخفیف‌های این هفته" products={sale} />
+        <ProductGrid title="جدیدترین‌ها" products={newest} viewAllSlug="new" />
+        <CollectionBanners />
+        <ProductGrid title="تخفیف‌های این هفته" products={sale} viewAllSlug="sale" />
+        <ProductGrid title="مردانه" products={men} viewAllSlug="men" />
+        <ProductGrid title="زنانه" products={women} viewAllSlug="women" />
+        <ProductGrid title="بچگانه" products={kids} viewAllSlug="kids" />
+        <ProductGrid title="کفش و اسنیکرز" products={shoes} viewAllSlug="shoes" />
       </main>
       <SiteFooter />
       <MobileTabBar />

@@ -4,6 +4,16 @@ import vans from "@/assets/p-vans.jpg";
 import shirt from "@/assets/p-shirt.jpg";
 import kids from "@/assets/p-kids.jpg";
 import runner from "@/assets/p-runner.jpg";
+import flannel from "@/assets/p-flannel.jpg";
+import sportTee from "@/assets/p-sport-tee.jpg";
+import momJeans from "@/assets/p-mom-jeans.jpg";
+import womenTee from "@/assets/p-women-tee.jpg";
+import vansWhite from "@/assets/p-vans-white.jpg";
+import kidsTee from "@/assets/p-kids-tee.jpg";
+import kidsJeans from "@/assets/p-kids-jeans.jpg";
+import kidsShoes from "@/assets/p-kids-shoes.jpg";
+import womenSport from "@/assets/p-women-sport.jpg";
+import oxford from "@/assets/p-oxford.jpg";
 
 export type Category = {
   slug: string;
@@ -110,20 +120,119 @@ const base: Omit<Product, "id">[] = [
     categories: ["men", "women", "shoes", "sport", "new"],
     isNew: true,
   },
+  {
+    title: "پیراهن فلانل چهارخانه",
+    brand: "کارو استریت",
+    price: 1740000,
+    oldPrice: 2080000,
+    image: flannel,
+    colors: ["قرمز", "مشکی"],
+    sizes: ["M", "L", "XL", "XXL"],
+    rating: 4.5,
+    categories: ["men", "shirt", "casual", "sale"],
+  },
+  {
+    title: "تیشرت ورزشی تنفس‌پذیر",
+    brand: "کارو اسپرت",
+    price: 980000,
+    image: sportTee,
+    colors: ["سرمه‌ای", "مشکی"],
+    sizes: ["S", "M", "L", "XL"],
+    rating: 4.6,
+    categories: ["men", "sport", "tshirt", "sport-tshirt", "new"],
+    isNew: true,
+  },
+  {
+    title: "شلوار جین مام‌فیت",
+    brand: "کارو دنیم",
+    price: 2140000,
+    image: momJeans,
+    colors: ["آبی روشن"],
+    sizes: ["36", "38", "40", "42"],
+    rating: 4.7,
+    categories: ["women", "jeans", "casual", "new"],
+    isNew: true,
+  },
+  {
+    title: "تیشرت یقه‌گرد زنانه",
+    brand: "کارو بیسیک",
+    price: 760000,
+    oldPrice: 950000,
+    image: womenTee,
+    colors: ["یاسی", "سفید"],
+    sizes: ["S", "M", "L"],
+    rating: 4.4,
+    categories: ["women", "tshirt", "casual", "sale"],
+  },
+  {
+    title: "کتانی ونس سفید",
+    brand: "کارو استریت",
+    price: 2280000,
+    image: vansWhite,
+    colors: ["سفید"],
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    rating: 4.8,
+    categories: ["men", "women", "shoes", "vans", "casual", "new"],
+    isNew: true,
+  },
+  {
+    title: "تیشرت بچگانه طرح دایناسور",
+    brand: "کارو کیدز",
+    price: 640000,
+    oldPrice: 820000,
+    image: kidsTee,
+    colors: ["زرد"],
+    sizes: ["4", "6", "8", "10"],
+    rating: 4.6,
+    categories: ["kids", "tshirt", "casual", "sale"],
+  },
+  {
+    title: "شلوار جین بچگانه کمرکش",
+    brand: "کارو کیدز",
+    price: 890000,
+    image: kidsJeans,
+    colors: ["آبی"],
+    sizes: ["4", "6", "8", "10", "12"],
+    rating: 4.3,
+    categories: ["kids", "jeans", "casual"],
+  },
+  {
+    title: "کتانی بچگانه چسبی",
+    brand: "کارو کیدز",
+    price: 1350000,
+    oldPrice: 1590000,
+    image: kidsShoes,
+    colors: ["آبی", "نارنجی"],
+    sizes: ["28", "30", "32", "34"],
+    rating: 4.7,
+    categories: ["kids", "shoes", "sport", "sale", "new"],
+    isNew: true,
+  },
+  {
+    title: "تیشرت ورزشی زنانه سبک",
+    brand: "کارو اسپرت",
+    price: 920000,
+    oldPrice: 1150000,
+    image: womenSport,
+    colors: ["سبز"],
+    sizes: ["S", "M", "L"],
+    rating: 4.5,
+    categories: ["women", "sport", "tshirt", "sport-tshirt", "sale"],
+  },
+  {
+    title: "پیراهن آکسفورد مردانه",
+    brand: "کارو استودیو",
+    price: 1680000,
+    image: oxford,
+    colors: ["آبی روشن"],
+    sizes: ["M", "L", "XL"],
+    rating: 4.6,
+    categories: ["men", "shirt", "casual"],
+  },
 ];
 
-/** Preview dataset — repeated to prove the grid scales to large catalogs. */
-export const products: Product[] = Array.from({ length: 5 }).flatMap((_, round) =>
-  base.map((p, i) => {
-    const item: Product = {
-      ...p,
-      id: `p-${round}-${i}`,
-      price: p.price + round * 40000,
-    };
-    if (p.oldPrice) item.oldPrice = p.oldPrice + round * 40000;
-    return item;
-  }),
-);
+/** Real catalog — one row per product; adding items only appends here. */
+export const products: Product[] = base.map((p, i) => ({ ...p, id: `p-${i}` }));
 
 export function productsByCategory(slug?: string) {
   if (!slug) return products;

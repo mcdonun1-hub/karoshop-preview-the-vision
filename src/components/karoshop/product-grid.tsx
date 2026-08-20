@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { ArrowDownUp, SlidersHorizontal, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowDownUp, ChevronLeft, SlidersHorizontal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProductCard } from "./product-card";
 import type { Product } from "@/lib/karoshop-data";
@@ -17,10 +18,13 @@ export function ProductGrid({
   title,
   products,
   subtitle,
+  viewAllSlug,
 }: {
   title: string;
   products: Product[];
   subtitle?: string;
+  /** When set, a "view all" link to that category is rendered next to the title. */
+  viewAllSlug?: string;
 }) {
   const [sort, setSort] = useState<SortKey>("new");
   const [onlyDiscount, setOnlyDiscount] = useState(false);
@@ -41,7 +45,19 @@ export function ProductGrid({
     <section className="px-3 pb-10 sm:px-6">
       <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:justify-between">
         <div className="min-w-0">
-          <h2 className="truncate text-lg font-black sm:text-2xl">{title}</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="truncate text-lg font-black sm:text-2xl">{title}</h2>
+            {viewAllSlug && (
+              <Link
+                to="/category/$slug"
+                params={{ slug: viewAllSlug }}
+                className="flex shrink-0 items-center gap-0.5 rounded-full bg-surface px-2.5 py-1 text-[11px] font-bold text-muted-foreground transition-colors hover:text-foreground sm:text-xs"
+              >
+                مشاهده همه
+                <ChevronLeft className="size-3.5" />
+              </Link>
+            )}
+          </div>
           <p className="text-xs text-muted-foreground price-num">
             {subtitle ?? `${list.length.toLocaleString("fa-IR")} محصول`}
           </p>
